@@ -19,6 +19,7 @@
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" />
     <link href="{{asset('css/material-kit.css')}}" rel="stylesheet"/>
 
+	@yield ('styles')
 </head>
 
 <body class="@yield('body_class')">
@@ -47,7 +48,15 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li>
+									<li>
+										<a href="{{ ('/home') }}">Dashboard</a>
+									</li>
+									@if (auth()->user()->admin)
+										<li>
+											<a href="{{ ('/admin/products') }}">Gestionar productos</a>
+										</li>	
+										@endif
+										<li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
