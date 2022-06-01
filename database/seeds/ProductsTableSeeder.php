@@ -29,5 +29,7 @@ class ProductsTableSeeder extends Seeder
         // ->each(function ($u) {
         //      $u->posts()->save(factory(App\Post::class)->make());
          });        
+
+         
     }
 }
