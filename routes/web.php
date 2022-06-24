@@ -18,15 +18,32 @@ Route::get('/', 'TestController@welcome');
 
 Auth::routes();
 
+
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/products/{id}', 'ProductController@show');
 
-Route::get('/admin/products','ProductController@index');//Listado
-Route::get('/admin/products/create','ProductController@create'); // Formulario
-Route::post('/admin/products','ProductController@store'); //Registrar
+Route::post('/cart', 'CartDetailController@store');
+Route::delete('/cart', 'CartDetailController@destroy');
+Route::post('/order', 'CartController@update');
 
-Route::get('/admin/products/{id}/edit','ProductController@edit'); // Formulario edición
-Route::post('/admin/products/{id}/edit','ProductController@update'); //Actualizar
+Route::middleware(['auth','admin'])->prefix('admin')->namespace('Admin')->group(function () {
+    Route::get('/products','ProductController@index');//Listado
+    Route::get('/products/create','ProductController@create'); // Formulario
+    Route::post('/products','ProductController@store'); //Registrar
+    
+    Route::get('/products/{id}/edit','ProductController@edit'); // Formulario edición
+    Route::post('/products/{id}/edit','ProductController@update'); //Actualizar
+    
+    Route::delete('/products/{id}','ProductController@destroy'); //Eliminar
+    
+    //Rutas para imagenes
+    Route::get('/products/{id}/images','ImageController@index'); // Listado de imagenes
+    Route::post('/products/{id}/images','ImageController@store'); //Registrar
+    Route::delete('/products/{id}/images','ImageController@destroy'); //Eliminar
 
-Route::delete('/admin/products/{id}','ProductController@destroy'); //Eliminar
+    Route::get('/products/{id}/images/select/{image}','ImageController@select'); //destacar
+});
+
+
 
 

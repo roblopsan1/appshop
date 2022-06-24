@@ -18,7 +18,7 @@
 	<!-- CSS Files -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/material-kit.css') }}"  rel="stylesheet"/>
-
+	@yield('style')
 </head>
 
 <body class="@yield('body-class')">
@@ -46,7 +46,15 @@
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" role="menu">
+									<li>
+										<a href="{{ url('/home') }}">Dashboard</a>
+									</li>
+									@if (auth()->user()->admin)
+									<li>
+										<a href="{{ url('/admin/products') }}">Gestionar productos</a>
+									</li>
+									@endif
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -83,6 +91,7 @@
 
     <div class="wrapper">
        @yield('content')
+	   
     </div>
 </body>
 	<!--   Core JS Files   -->
